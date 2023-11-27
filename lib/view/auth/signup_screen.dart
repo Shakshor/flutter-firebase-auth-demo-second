@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
 import 'package:flutter_firebase_auth_demo_second/view/auth/login_screen.dart';
 
 
@@ -14,6 +15,10 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
 
 
+  // states
+  bool textLoading = false;
+
+
   // key_for_form
   final _signupFormKey = GlobalKey<FormState>();
 
@@ -21,9 +26,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
   // firebase_auth_initialize
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
@@ -35,6 +39,49 @@ class _SignupScreenState extends State<SignupScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
+
+
+  // sign_up_function
+  void signUp() async {
+
+
+    // loading
+    setState(() {
+      textLoading = true;
+    });
+
+
+    await auth.createUserWithEmailAndPassword(
+      email: emailController.text.toString(),
+      password: passwordController.text.toString(),
+    ).then((value) {
+
+
+      // loading
+      setState(() {
+        textLoading = false;
+      });
+
+    }).onError((error, stackTrace) {
+
+      // loading
+      setState(() {
+        textLoading = false;
+      });
+
+      // print(error.toString());
+
+      Utils().showErrorMessage(error.toString());
+
+    });
+
+
+
+  }
+
+
+
 
 
 
@@ -200,16 +247,12 @@ class _SignupScreenState extends State<SignupScreen> {
 
                     // log_in_button
                     MaterialButton(
-                        onPressed: () async {
+                        onPressed: ()  {
 
 
-                          if(_signupFormKey.currentState!.validate()){
+                          if(_signupFormKey.currentState!.validate())  {
 
-
-                            // await _auth.createUserWithEmailAndPassword(
-                            //   email: emailController.text.toString(),
-                            //   password: passwordController.text.toString(),
-                            // );
+                             signUp();
 
                           }
 
@@ -224,7 +267,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
 
                         color: Colors.deepPurple,
-                        child: const Text('Signup',style: TextStyle(
+                        child: textLoading ?
+                        const CircularProgressIndicator(
+                          strokeWidth: 3,
+                          color: Colors.white,
+                        )
+                            :
+                        const Text('Signup',style: TextStyle(
                             color: Colors.white
                         ),)
                     ),
@@ -298,3 +347,11 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+

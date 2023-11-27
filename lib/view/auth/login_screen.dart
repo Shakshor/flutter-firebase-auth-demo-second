@@ -1,6 +1,9 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
+import 'package:flutter_firebase_auth_demo_second/posts/post_screen.dart';
 import 'package:flutter_firebase_auth_demo_second/view/auth/signup_screen.dart';
 
 
@@ -16,10 +19,58 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // key_for_form
   final _loginFormKey = GlobalKey<FormState>();
+  bool textLoading = false;
 
   // field_controller
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+
+  // firebase_auth_initialize
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+
+
+  // login_function_call
+  void login(){
+
+    setState(() {
+      textLoading = true;
+    });
+
+
+    _auth.signInWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString(),
+
+
+    ).then((value) {
+
+      setState(() {
+        textLoading = false;
+      });
+
+      // show_success_msg
+      Utils().showSuccessMessage(value.user!.email.toString());
+
+
+      // navigate_to_another_screen
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const PostScreen() ));
+
+    }).onError((error, stackTrace){
+
+      setState(() {
+        textLoading = false;
+      });
+
+      debugPrint(error.toString());
+      // show_error_msg
+      Utils().showErrorMessage(error.toString());
+
+    });
+
+  }
+
 
 
 
@@ -198,9 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             if(_loginFormKey.currentState!.validate()){
 
-
-
-
+                              login();
 
                             }
 
@@ -215,7 +264,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
 
                           color: Colors.deepPurple,
-                          child: const Text('Login',style: TextStyle(
+                          child: textLoading ?
+                          const CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Colors.white,
+                          )
+                              :
+                          const Text('Login',style: TextStyle(
                               color: Colors.white
                           ),)
                       ),
