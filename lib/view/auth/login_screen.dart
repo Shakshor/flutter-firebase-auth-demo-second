@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
-import 'package:flutter_firebase_auth_demo_second/posts/post_screen.dart';
 import 'package:flutter_firebase_auth_demo_second/view/auth/signup_screen.dart';
+import 'package:flutter_firebase_auth_demo_second/view/posts/post_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
