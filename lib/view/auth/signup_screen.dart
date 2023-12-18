@@ -63,6 +63,8 @@ class _SignupScreenState extends State<SignupScreen> {
         textLoading = false;
       });
 
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen() ));
+
     }).onError((error, stackTrace) {
 
       // loading

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
 import 'package:flutter_firebase_auth_demo_second/view/auth/login_screen.dart';
+import 'package:flutter_firebase_auth_demo_second/view/posts/add_post_screen.dart';
 
 
 class PostScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _PostScreenState extends State<PostScreen> {
     return  Scaffold(
 
       appBar: AppBar(
-        title: const Text('Post'),
+        title: const Text('Welcome To Post Screen'),
         backgroundColor: Colors.blue,
         centerTitle: true,
 
@@ -57,6 +58,26 @@ class _PostScreenState extends State<PostScreen> {
           )
 
         ],
+
+      ),
+
+
+
+      // adding_floation_action_button
+      floatingActionButton: FloatingActionButton(
+
+        onPressed: (){
+
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddPostScreen()));
+          
+
+        },
+
+        child: Icon(
+          Icons.add,
+          // color: Colors.blue,
+        ),
 
       ),
 

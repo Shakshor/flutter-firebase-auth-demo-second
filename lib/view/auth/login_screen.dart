@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
+import 'package:flutter_firebase_auth_demo_second/view/auth/login_with_phone_screen.dart';
 import 'package:flutter_firebase_auth_demo_second/view/auth/signup_screen.dart';
 import 'package:flutter_firebase_auth_demo_second/view/posts/post_screen.dart';
 
@@ -230,12 +231,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 
-
-
                       // height
                       const SizedBox(
 
-                        height: 50,
+                        height: 70,
 
                       ),
 
@@ -260,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 45,
 
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
+                              borderRadius: BorderRadius.circular(30)
                           ),
 
                           color: Colors.deepPurple,
@@ -276,19 +275,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
 
-                      // height
-                      const SizedBox(
-
-                        height: 20,
-
-                      ),
-
-
-
                       // navigate_to_sign_up_button
                       Row(
 
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
 
                         children: [
 
@@ -308,6 +298,48 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
 
                         ],
+
+                      ),
+
+
+
+                      // height
+                      const SizedBox(
+
+                        height: 10,
+
+                      ),
+
+
+
+                      // log_in_phone_button
+                      MaterialButton(
+
+
+                        onPressed: (){
+
+                          // navigate_to_another_screen
+                          Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const LoginWithPhoneScreen() )
+                            );
+
+                          },
+
+                          minWidth: double.infinity,
+                          height: 45,
+
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                          ),
+
+
+
+                          color: Colors.blueGrey,
+                          child: const Text('Login With Phone',style: TextStyle(
+                              color: Colors.white
+                          ),),
+
 
                       ),
 
