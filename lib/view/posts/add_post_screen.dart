@@ -1,6 +1,9 @@
 
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_demo_second/Utils/Utils.dart';
 
 
 class AddPostScreen extends StatefulWidget {
@@ -11,6 +14,15 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+
+  // post_field_controller
+  final TextEditingController _postController = TextEditingController();
+
+  // firebase_real_time_db_initialize
+  final  databaseRef = FirebaseDatabase.instance.ref('Post');
+  bool loading = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +42,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
           children: [
 
             // height
-            SizedBox(
+            const SizedBox(
 
               height: 30,
 
             ),
 
-
             // text_form_field
             TextFormField(
-
               maxLines: 5,
-
+              controller: _postController,
               decoration: const InputDecoration(
                 hintText: 'Write Here....',
 
@@ -62,11 +72,22 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
             // add_post_btn
             MaterialButton(
-                onPressed: (){
 
 
+                onPressed: ()  {
 
-                },
+
+                  databaseRef.child('1').set({
+
+                    'id' : 1,
+                    'title' : _postController.text.toString(),
+
+                  }).then((value){
+                    Utils().showSuccessMessage('Post Added');
+                  }).onError((error, stackTrace){
+                    Utils().showSuccessMessage('${error.toString()}');
+                    });
+                  },
 
                 minWidth: 200,
                 height: 45,
@@ -80,14 +101,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     color: Colors.white
                 ),)
             ),
-
-
-
-
-
-
           ],
-
         ),
       ),
 

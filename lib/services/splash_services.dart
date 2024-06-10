@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,10 +14,12 @@ class SplashServices {
   void isLogin(BuildContext context){
 
     // initialize_firebase_auth
-    final FirebaseAuth auth = FirebaseAuth.instance ;
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
     // check_user_logged_in
     final user = auth.currentUser;
+
+    log('inside_splash_services: ${user?.email.toString()} ');
 
 
     // condition_firebase
@@ -38,14 +41,6 @@ class SplashServices {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen() ));
 
       });
-
-
     }
-
-
-
-
   }
-
-
 }

@@ -43,8 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _auth.signInWithEmailAndPassword(
         email: emailController.text.toString(),
         password: passwordController.text.toString(),
-
-
     ).then((value) {
 
       setState(() {

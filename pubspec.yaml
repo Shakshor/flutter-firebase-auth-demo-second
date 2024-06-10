@@ -41,15 +41,15 @@ dependencies:
 
   # firebase core
   firebase_core: ^2.22.0
-
   # firebase authentication
   firebase_auth: ^4.13.0
-
   # no sql database
   cloud_firestore: ^4.13.0
-
+  # no sql real_time_database
+  firebase_database: ^10.3.8
   # firebase storage
   firebase_storage: ^11.5.0
+
 
   # flutter toast message
   fluttertoast: ^8.2.4

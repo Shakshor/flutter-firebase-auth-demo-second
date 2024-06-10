@@ -134,18 +134,10 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
                 child: const Text('Login',style: TextStyle(
                     color: Colors.white
                 ),)
-
-
             ),
-
-
-
-
           ],
-
         ),
       ),
-
     );
   }
 }
